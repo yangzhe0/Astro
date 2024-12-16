@@ -1,0 +1,46 @@
+---
+import ThemeToggle from './ThemeToggle.astro';
+import { siteConfig } from '../config';
+
+const navItems = [
+  { href: '/', text: '主页' },
+  { href: '/blog', text: '博客' },
+  { href: '/tags', text: '标签' },
+  { href: '/archive', text: '归档' },
+];
+---
+
+<header class="py-2 fixed top-0 left-0 w-full z-10 bg-gray-100 dark:bg-gray-800 shadow-md">
+  <nav class="flex justify-between items-center flex-wrap px-4 sm:px-6 lg:px-8">
+    <a href="/" class="text-2xl font-bold text-gray-900 dark:text-white">{ siteConfig.title }</a>
+    <div class="flex items-center gap-6">
+        <ul class="flex gap-6">
+          {navItems.map(({ href, text }) => (
+            <li key={text}>
+              <a
+                href={href}
+                class="text-lg font-bold nav-item transition-fast hover:text-gray-900 dark:hover:text-white dark:text-gray-200"
+              >
+                {text}
+              </a>
+            </li>
+          ))}
+        </ul>
+
+      <ThemeToggle />
+    </div>
+  </nav>
+</header>
+
+<style>
+  body {
+    padding-top: 60px; /* 这个值应该等于头部的高度 */
+  }
+  /* 自定义快速过渡效果 */
+  .transition-fast {
+    transition: color 0.2s ease-in-out;
+  }
+  .nav-item {
+    font-family: 'SimSun', sans-serif; /* 设置字体为宋体 */
+  }
+</style>

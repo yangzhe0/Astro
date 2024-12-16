@@ -1,0 +1,46 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import PostDate from '../components/PostDate.astro';
+import PostTags from '../components/PostTags.astro';
+import { Image } from 'astro:assets';
+
+interface Props {
+  post: CollectionEntry<'blog'>;
+}
+
+const { post } = Astro.props;
+const { title, description, date, tags, image } = post.data;
+
+// Ensure image dimensions are available to prevent CLS
+const imageWidth = 800; // Set appropriate default width
+const imageHeight = 400; // Set appropriate default height
+---
+
+<article class="mb-6 p-4 bg-gray-50 dark:bg-gray-800/60 rounded-xl shadow-md hover:shadow-xl dark:shadow-gray-700/30 dark:hover:shadow-2xl dark:hover:shadow-primary-500/20 border border-gray-700 dark:border-gray-500/50 transition-all duration-200 flex flex-col items-center">
+  {/* Wrap the entire article preview with an <a> tag */}
+  <a href={`/blog/${post.slug}`} class="block w-full max-w-4xl mx-auto">
+    {image && (
+      <div class="mb-3 flex justify-center w-full">
+        <Image
+          src={image}
+          alt={title}
+          width={imageWidth}
+          height={imageHeight}
+          decoding="async"
+          loading="eager"
+          class="w-full h-auto max-w-4xl object-cover rounded-lg shadow-md hover:shadow-lg transition-shadow"
+        />
+      </div>
+    )}
+    <header class="w-full text-center mb-3">
+      <h2 class="text-3xl font-bold mb-2 text-gray-800 dark:text-gray-200">
+        {title}
+      </h2>
+      <div class="mb-3">
+        <PostDate date={date} />
+      </div>
+    </header>
+    <p class="text-gray-800 dark:text-gray-200 mb-3 text-center">{description}</p>
+    {tags && <PostTags tags={tags} />}
+  </a>
+</article>
