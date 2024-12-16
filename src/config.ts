@@ -18,7 +18,7 @@ export interface SiteConfig {
 export const siteConfig: SiteConfig = {
   site: "https://yangzhe.us/", // your site url
   title: "Yangzhe's blog",
-  slogan: "融汇他人之智 乃至贯通之极",
+  slogan: "他人之智 贯通之极",
   description: "",
   social: {
     github: "https://github.com/yangzhe0", // leave empty if you don't want to show the github
